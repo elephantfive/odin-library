@@ -51,9 +51,19 @@ function displayBook (book) {
         newBookInfo.appendChild(newListItem);
     }
 
+    const removeButton = document.createElement("button");
+    removeButton.classList.add("remove-button");
+    removeButton.textContent = "Remove Book"
+
+    removeButton.addEventListener("click", function() {
+        books.removeChild(newBook);
+        myLibrary.pop(book);
+    });
+
     books.appendChild(newBook);
     newBook.appendChild(newBookTitle);
     newBook.appendChild(newBookInfo);
+    newBook.appendChild(removeButton);
 }
 
 function addNewBook() {
