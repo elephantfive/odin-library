@@ -43,21 +43,36 @@ function displayLibrary() {
 }
 
 function addNewBook() {
-    const newBookDialog = document.querySelector("dialog")
-    const dialogText = document.querySelector(".dialog");
-    const newBookButton = document.querySelector(".add-new-book");
-    const nextButton = document.querySelector(".next");
-    const newBookInput = document.querySelector("input");
+    const newBookInfo = [];
+    const newBookDialog = document.querySelector("dialog");
+    const newBookForm = document.querySelector("form");
+    const newBookButton = document.querySelector(".add-new-book")
 
     newBookButton.addEventListener("click", function(){
         newBookDialog.showModal();
     });
-    
-    nextButton.addEventListener("click", function(){
 
+    newBookForm.addEventListener("submit", (event) => {
+        event.preventDefault();
+        for (const row of newBookForm.children) {
+            for (const child of row.children) {
+                if (child.hasAttribute('id')) {
+                    if (child.getAttribute('id') !== 'read') {
+                        newBookInfo.push(child.value);
+                    } else {
+                        if (child['read']) {
+                            newBookInfo.push(true);
+                        } else {
+                            newBookInfo.push(false);
+                        }
+                    }
+                }
+            }
+        }
+        addBookToLibrary(newBookInfo[0], newBookInfo[1], newBookInfo[2], newBookInfo[3]);
+        newBookDialog.close();
     });
 
-    const newBookInfo = [];
 }
 
 const myLibrary =[];
