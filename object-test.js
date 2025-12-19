@@ -16,30 +16,44 @@ function Book(title, author, pages, read, id) {
 }
 
 function addBookToLibrary(title, author, pages, read) {
-    myLibrary.push(new Book(title, author, pages, read, crypto.randomUUID));
+    myLibrary.push(new Book(title, author, pages, read, crypto.randomUUID()));
 }
 
 function displayLibrary() {
     const books = document.querySelector(".books");
     for (const book of myLibrary) {
-        const newBook = document.createElement("div");
-        newBook.classList.add("book");
-
-        const newBookTitle = document.createElement("h2");
-        newBookTitle.textContent = book.title;
-
-        const newBookInfo = document.createElement('ul');
-        for (const item of book.info) {
-            const newListItem = document.createElement("li");
-            newListItem.textContent = item;
-            newBookInfo.appendChild(newListItem);
+        let valid = true;
+        for (child of books.children) {
+            if (child.id === book.id) {
+                valid = false;
+                break;
+            }
         }
-
-        books.appendChild(newBook);
-        newBook.appendChild(newBookTitle);
-        newBook.appendChild(newBookInfo);
-
+        if (valid) {
+            displayBook(book);
+        }
     }
+}
+
+function displayBook (book) {
+    const books = document.querySelector(".books");
+    const newBook = document.createElement("div");
+    newBook.id = book.id;
+    newBook.classList.add("book");
+
+    const newBookTitle = document.createElement("h2");
+    newBookTitle.textContent = book.title;
+
+    const newBookInfo = document.createElement('ul');
+    for (const item of book.info) {
+        const newListItem = document.createElement("li");
+        newListItem.textContent = item;
+        newBookInfo.appendChild(newListItem);
+    }
+
+    books.appendChild(newBook);
+    newBook.appendChild(newBookTitle);
+    newBook.appendChild(newBookInfo);
 }
 
 function addNewBook() {
@@ -71,6 +85,7 @@ function addNewBook() {
         }
         addBookToLibrary(newBookInfo[0], newBookInfo[1], newBookInfo[2], newBookInfo[3]);
         newBookDialog.close();
+        displayLibrary();
     });
 
 }
