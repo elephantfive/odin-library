@@ -1,0 +1,25 @@
+body {
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: 1fr 5fr;
+}
+
+.sidebar {
+    grid-row: span 3;
+}
+
+.header {
+    grid-column: 2 span 5;
+}
+
+.main-content {
+    grid-area: 2 2 / span 2 span 5;
+}
+
+.sidebar,
+.header,
+.main-content {
+    display: grid;
+    border: 1px solid black;
+}
