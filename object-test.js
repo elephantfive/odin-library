@@ -13,6 +13,10 @@ function Book(title, author, pages, read, id) {
     } else {
         this.info.push("Not read yet.");
     }
+    this.toggleRead = function() {
+        this.read = this.read ? false : true;
+        this.info[2] = this.read ? "Read." : "Not read yet.";
+    }
 }
 
 function addBookToLibrary(title, author, pages, read) {
@@ -39,7 +43,6 @@ function displayBook (book) {
     const books = document.querySelector(".books");
     const newBook = document.createElement("div");
     newBook.id = book.id;
-    newBook.classList.add("book");
 
     const newBookTitle = document.createElement("h2");
     newBookTitle.textContent = book.title;
@@ -52,17 +55,23 @@ function displayBook (book) {
     }
 
     const removeButton = document.createElement("button");
-    removeButton.classList.add("remove-button");
     removeButton.textContent = "Remove Book"
-
     removeButton.addEventListener("click", function() {
         books.removeChild(newBook);
         myLibrary.pop(book);
     });
 
+    const readStatus = document.createElement("button");
+    readStatus.textContent = "Have you read this book?";
+    readStatus.addEventListener("click", function() {
+        book.toggleRead();
+        newBook.children[1].children[2].textContent = book.info[2]; 
+    });
+
     books.appendChild(newBook);
     newBook.appendChild(newBookTitle);
     newBook.appendChild(newBookInfo);
+    newBook.appendChild(readStatus);
     newBook.appendChild(removeButton);
 }
 
