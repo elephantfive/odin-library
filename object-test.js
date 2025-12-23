@@ -1,19 +1,20 @@
-function Book(title, author, pages, read, id) {
-    if (!new.target) {
-        throw Error("You must use the 'new' operator.");
+class Book {
+
+    constructor(title, author, pages, read, id) {
+        this.title = title;
+        this.author = author;
+        this.pages = pages;
+        this.read = read;
+        this.id = id;
+        this.info = [author, `${pages} pages`];
+        if (read) {
+            this.info.push("Read.");
+        } else {
+            this.info.push("Not read yet.");
     }
-    this.title = title;
-    this.author = author;
-    this.pages = pages;
-    this.read = read;
-    this.id = id;
-    this.info = [author, `${pages} pages`];
-    if (read) {
-        this.info.push("Read.");
-    } else {
-        this.info.push("Not read yet.");
     }
-    this.toggleRead = function() {
+    
+    toggleRead = () => {
         this.read = this.read ? false : true;
         this.info[2] = this.read ? "Read." : "Not read yet.";
     }
@@ -111,8 +112,8 @@ function addNewBook() {
 
 const myLibrary =[];
 
-addBookToLibrary("The Hobbit", "J.R.R. Tolkein", 512, false);
-addBookToLibrary("Bitlop", "J. F. bOOBAH", 123, true);
+const theHobbit = addBookToLibrary("The Hobbit", "J.R.R. Tolkein", 512, false);
+const Bitlop = addBookToLibrary("Bitlop", "J. F. bOOBAH", 123, true);
 
 displayLibrary();
 addNewBook();
